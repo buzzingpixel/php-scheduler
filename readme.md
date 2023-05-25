@@ -61,6 +61,6 @@ $containerBindings->addBinding(
 
 Once your configuration is in place and you've set up some scheduled jobs to run, you need to set up something to call `\BuzzingPixel\Scheduler\ScheduleHandler::runSchedule` every minute. You can use a cron, or set up a Docker image or whatever works best in your environment.
 
-This package provides a Symfony console command which you can use if you're using [Symfony Console](https://symfony.com/doc/current/components/console.html) (or [Silly](https://github.com/mnapoli/silly), which is my preference). Load up `\BuzzingPixel\Queue\Framework\QueueConsumeNextSymfonyCommand` through your container, and add it to your Symfony console app.
+This package provides a Symfony console command which you can use if you're using [Symfony Console](https://symfony.com/doc/current/components/console.html) (or [Silly](https://github.com/mnapoli/silly), which is my preference). Load up `\BuzzingPixel\Scheduler\Framework\RunScheduleSymfonyCommand` through your container, and add it to your Symfony console app.
 
 Then in your cron or Docker setup run the command `buzzingpixel-schedule:run` every minute through your CLI app.
