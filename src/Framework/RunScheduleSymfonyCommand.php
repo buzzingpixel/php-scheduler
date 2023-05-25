@@ -13,13 +13,9 @@ class RunScheduleSymfonyCommand extends Command
 {
     public function __construct(
         private readonly ScheduleHandler $scheduleHandler,
+        public string|null $name = 'buzzingpixel-schedule:run',
     ) {
-        parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->setName('buzzingpixel-schedule:run');
+        parent::__construct($name);
     }
 
     protected function execute(

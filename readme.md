@@ -12,6 +12,8 @@ PHP's `\Redis` and the Symfony `\Symfony\Component\Cache\Adapter\RedisAdapter` w
 
 ## Usage
 
+### ScheduleFactory
+
 You will need to implement the `\BuzzingPixel\Scheduler\ScheduleFactory` and make it available through your container and configure to send whatever scheduled items you want.
 
 Example:
@@ -46,6 +48,8 @@ class ScheduleFactory implements \BuzzingPixel\Scheduler\ScheduleFactory
 }
 ```
 
+### Midnight Strings
+
 If you utilize the Frequency midnight strings, you might want to be able to control the timezone. Since system timezone can be unreliable and/or it's recommended practice to set that to UTC, this package does not rely on the system's timezone. What you can do instead is send your own newed up instance of `\BuzzingPixel\Scheduler\SchedulerTimeZone` through the container.
 
 Here's an example:
@@ -59,8 +63,16 @@ $containerBindings->addBinding(
 );
 ```
 
+### Running the schedule
+
 Once your configuration is in place and you've set up some scheduled jobs to run, you need to set up something to call `\BuzzingPixel\Scheduler\ScheduleHandler::runSchedule` every minute. You can use a cron, or set up a Docker image or whatever works best in your environment.
+
+#### Command to run schedule
 
 This package provides a Symfony console command which you can use if you're using [Symfony Console](https://symfony.com/doc/current/components/console.html) (or [Silly](https://github.com/mnapoli/silly), which is my preference). Load up `\BuzzingPixel\Scheduler\Framework\RunScheduleSymfonyCommand` through your container, and add it to your Symfony console app.
 
-Then in your cron or Docker setup run the command `buzzingpixel-schedule:run` every minute through your CLI app.
+Then in your cron or Docker setup run the command `buzzingpixel-schedule:run` (unless you've changed the command name) every minute through your CLI app.
+
+##### Changing the command name
+
+If you'd like to change the command name, you can do so through the `name` constructor parameter of the `RunScheduleSymfonyCommand` class. Configure your DI to provide the command name you would prefer.
